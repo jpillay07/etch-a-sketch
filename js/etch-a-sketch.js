@@ -29,7 +29,7 @@ gridSizeButton.addEventListener("click", () => {
 //Adds event listener to each generated block to change color on hover
 function colorChangeOnHover(individualBlock){
     individualBlock.addEventListener("mouseover", () => {
-        individualBlock.style.backgroundColor = "black";
+        individualBlock.style.backgroundColor = giveColor(individualBlock);
     });
 }
 
@@ -55,4 +55,33 @@ function generateGrid(setGridSize){
 //Clears the grid
 function clearGrid(){
     etchContainer.textContent = "";
+}
+
+//This function will color in a block if its white or darken it if it is already coloured
+function giveColor(currentBlock){
+    if(currentBlock.classList.contains("is-coloured")){
+        return makeDarker(currentBlock);
+    }
+    else{
+        return randomColor(currentBlock);
+    }
+
+}
+
+//Function to generate a random hsl color
+function randomColor(currentBlock){
+    var h = Math.floor(Math.random() * 360);
+    currentBlock.classList.add("is-coloured");
+    return `hsl( ${h} , 100%, 90%)`;
+}
+
+//This function takes
+function makeDarker(currentBlock){
+    var hslColor = currentBlock.style.backgroundColor;
+    console.log(hslColor);
+    var lightness = hslColor.slice(hslColor.length - 4, hslColor.length - 2);
+    var lightnessNumber = parseInt(lightness) - 10;
+    console.log(lightnessNumber);
+    return hslColor.replace("lightness", `${lightnessNumber}`);
+
 }
