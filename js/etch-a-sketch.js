@@ -30,6 +30,7 @@ gridSizeButton.addEventListener("click", () => {
 function colorChangeOnHover(individualBlock){
     individualBlock.addEventListener("mouseover", () => {
         individualBlock.style.backgroundColor = giveColor(individualBlock);
+        console.log(individualBlock.style.backgroundColor);
     });
 }
 
@@ -71,17 +72,24 @@ function giveColor(currentBlock){
 //Function to generate a random hsl color
 function randomColor(currentBlock){
     var h = Math.floor(Math.random() * 360);
+    var s = Math.floor(Math.random() * 100);
+    var l = Math.floor(Math.random() * 100);
     currentBlock.classList.add("is-coloured");
-    return `hsl( ${h} , 100%, 90%)`;
+    currentBlock.style.filter = "brightness(100%)";
+    return `hsl( ${h} , ${s}%, ${l}%)`;
 }
 
-//This function takes
+//This function takes a block and then deducts its nrightness by 10 percent if it is not already 0 percent brightness
 function makeDarker(currentBlock){
-    var hslColor = currentBlock.style.backgroundColor;
-    console.log(hslColor);
-    var lightness = hslColor.slice(hslColor.length - 4, hslColor.length - 2);
-    var lightnessNumber = parseInt(lightness) - 10;
-    console.log(lightnessNumber);
-    return hslColor.replace("lightness", `${lightnessNumber}`);
+    var currentBrightness = currentBlock.style.filter;
+    currentBrightness = currentBrightness.replace("brightness(", "").replace("%)", "");
+
+    var newBrightness;
+    if(parseInt(currentBrightness) !== 0){
+        newBrightness = parseInt(currentBrightness) - 10;
+    }
+    
+    currentBlock.style.filter = `brightness(${newBrightness}%)`;
+    return currentBlock.style.backgroundColor;
 
 }
