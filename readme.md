@@ -1,0 +1,1 @@
+This exercise was aimed at sharpening basic vanila js skills. It is a simple sketchpad that allows a user to generate a grid of blocks (up to 100x100 in size) and colors the blocks in as the mouse hovers over the blocks. It generates a random block color and the blocks get darker as the mouse repeatedly passes over them.
